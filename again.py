@@ -114,7 +114,10 @@ from sklearn.manifold import TSNE
     
 
     # Demander à l'utilisateur le chemin du fichier
+@st.cache_data
+
 def tsne(df):
+    
     y = df["Sample_Type"]
     X = df.drop("Sample_Type", axis=1)
 
