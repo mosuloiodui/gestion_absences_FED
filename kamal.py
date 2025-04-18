@@ -122,7 +122,7 @@ def modx(df_original):
         st.markdown("### 🎓 Courbe d'apprentissage")
 
 
-        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
+         with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
@@ -137,7 +137,7 @@ def modx(df_original):
             ax.set_xlabel("Training Size")
             ax.set_ylabel("Accuracy")
             ax.legend()
-            st.pyplot(fig)
+            st.pyplot(fig) */
     
 @st.cache_data
 def modx(df_tave):
@@ -275,7 +275,7 @@ def modx(df_mixte):
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
-        
+name='XGBoost'       
 @st.cache_data
 def modx(df_ctgan_100K):
     df=df_ctgan_100K
@@ -375,7 +375,7 @@ def modx(df_ctgan_100K):
             ax.legend()
             st.pyplot(fig)
         st.markdown("### ROC curve")
-
+      
         with st.spinner(f"⏳ ROC Curve  en cours..."):
             model.fit(X_train, y_train)
 
@@ -404,7 +404,7 @@ def cou(mo):
     
          st.markdown("### 🎓 Courbe d'apprentissage")
 
-         with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+         with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
