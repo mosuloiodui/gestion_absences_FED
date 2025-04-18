@@ -17,18 +17,18 @@ import openpyxl
 
 # ---- FICHIERS ----
 dataset_paths = {
-    "Original": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier.csv",
-    "CouplaGAN": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_copulagan2.csv",
-    "CTGAN_100K_1":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_1.csv",
-    "CTGAN_100K_2":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_2.csv",
-    "CTGAN_100K_3":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_3.csv",
-    "CTGAN_100K_4":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_4.csv",
-    "CTGAN_100K_5":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_5.csv",
-    "CTGAN_100K_6":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_6.csv",
-    "CTGAN_100K_7":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_7.csv",
-    "CTGAN_100K_8":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_8.csv",
-    "CTGAN_100K_9":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_9.csv",
-    "CTGAN_100K_10":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_10.csv",
+    "Original": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier.csv",
+    "CouplaGAN": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_copulagan2.csv",
+    "CTGAN_100K_1":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_1.csv",
+    "CTGAN_100K_2":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_2.csv",
+    "CTGAN_100K_3":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_3.csv",
+    "CTGAN_100K_4":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_4.csv",
+    "CTGAN_100K_5":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_5.csv",
+    "CTGAN_100K_6":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_6.csv",
+    "CTGAN_100K_7":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_7.csv",
+    "CTGAN_100K_8":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_8.csv",
+    "CTGAN_100K_9":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_9.csv",
+    "CTGAN_100K_10":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_10.csv",
     
     
     "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_tvae%20(1).csv",
