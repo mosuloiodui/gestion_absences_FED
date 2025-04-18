@@ -212,7 +212,7 @@ else:
     st.session_state.df = df
     str='Original'
 st.title("Ransomaware vs Goodware")
-go_data = st.sidebar.button(f"🚀 Go (Charger:{str)")
+go_data = st.sidebar.button(f"🚀 Go (Charger:{str})")
 if 'go_data' not in st.session_state:
     st.session_state.go_data=False
 
