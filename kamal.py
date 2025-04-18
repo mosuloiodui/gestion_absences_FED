@@ -39,7 +39,7 @@ def read_ctgan():
     return pd.concat([pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)], ignore_index=True)
 @st.cache_data
 def read_mixte():
-    return pd.concat(read_tvae(),read_original())
+    return pd.concat([read_tvae(), read_original()], ignore_index=True).sample(frac=1)
 
 @st.cache_data
 def read_original():
