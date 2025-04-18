@@ -38,7 +38,7 @@ dataset_paths = {
 def panda():
     return [pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
   
-CTGAN_100k=panda()
+CTGAN100k=panda()
 
 
 # ---- FONCTION DE LECTURE ----
@@ -150,23 +150,23 @@ if "datasets_choisis" not in st.session_state:
 
 dataset_choice = st.sidebar.multiselect(
     "Choisissez un ou plusieurs datasets",
-    options=list(dataset_paths.keys()),default=['Original']
+    options=['Original,'CTGAN(100k)',"CTGAN','TVAE','CouplaGAN'],default=['Original']
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
 @st.cache_data
-def charger_les_datasets(selection, dataset_paths, file=CTGAN_100K):
+def charger_les_datasets(selection, dataset_paths, file='CTGAN(100K)'):
     all_data = [lire_fichier(dataset_paths[name]) for name in selection if name in dataset_paths]
-    if 'CTGAN_100k' in selection:
-        all_data.append(pd.concat(CTGAN_100K, axis=0))  # Concatène les 10 parties
+    if file in selection:
+        all_data.append(pd.concat(CTGAN100K, axis=0))  # Concatène les 10 parties
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
     return df
 
 # ---- UTILISATION ----
 if dataset_choice:
-    df = charger_les_datasets(dataset_choice, dataset_paths, CTGAN_100K)
+    df = charger_les_datasets(dataset_choice, dataset_paths)
  
    
 
