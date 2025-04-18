@@ -336,7 +336,7 @@ def modx(df_ctgan_100K):
                 train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
             )
             train_mean = np.mean(train_scores, axis=1)
-            test_mean = np.mean(test_scores, axis=1)for name in choix_models:
+            test_mean = np.mean(test_scores, axis=1)for name in choix_models
         model = create_model(name)
         with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
