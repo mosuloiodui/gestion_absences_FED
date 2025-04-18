@@ -122,7 +122,7 @@ def modx(df_original):
         st.markdown("### 🎓 Courbe d'apprentissage")
 
 
-         with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
+        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
