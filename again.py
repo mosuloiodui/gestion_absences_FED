@@ -150,13 +150,13 @@ if "datasets_choisis" not in st.session_state:
 
 dataset_choice = st.sidebar.multiselect(
     "Choisissez un ou plusieurs datasets",
-    options=['Original,'CTGAN(100k)',"CTGAN','TVAE','CouplaGAN'],default=['Original']
+    options=['Original,'CTGAN_100k',"CTGAN','TVAE','CouplaGAN'],default=['Original']
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
 @st.cache_data
-def charger_les_datasets(selection, dataset_paths, file='CTGAN(100K)'):
+def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
     all_data = [lire_fichier(dataset_paths[name]) for name in selection if name in dataset_paths]
     if file in selection:
         all_data.append(pd.concat(CTGAN100K, axis=0))  # Concatène les 10 parties
