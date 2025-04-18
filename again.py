@@ -114,7 +114,6 @@ from sklearn.manifold import TSNE
     
 
     # Demander à l'utilisateur le chemin du fichier
-@st.cache_data
 
 def tsne(df):
     
@@ -159,7 +158,6 @@ dataset_choice = st.sidebar.multiselect(
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
-@st.cache_data
 str1=''
 def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
     all_data = [lire_fichier(dataset_paths[name]) for name in selection if name in dataset_paths]
