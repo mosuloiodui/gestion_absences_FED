@@ -70,12 +70,12 @@ def create_model(model_name):
             ('mlp', MLPClassifier())
         ], voting='soft')
 @st.cache_data
-def mod(mo,df_original):
+def modx(df_original):
     df=df_otiginal
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=create_model(mo)
+    model=xgb.XGBoost()
     st.session_state.go_model=True
 
     str=""
@@ -123,12 +123,12 @@ def mod(mo,df_original):
       cou(mo)
       roccurve(mo)
 @st.data_cache
-def mod(mo,df_tave):
+def modx(df_tave):
     df=df_tvae
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=create_model(mo)
+    model=xgb.XGBoost()
     st.session_state.go_model=True
 
     str=""
@@ -173,10 +173,24 @@ def mod(mo,df_tave):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-        cou(mo)
-        roccurve(mo)
+        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+          
+            train_sizes, train_scores, test_scores = learning_curve(
+                model, X, y, cv=5, scoring='accuracy',
+                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
+            )
+            train_mean = np.mean(train_scores, axis=1)
+            test_mean = np.mean(test_scores, axis=1)
+            fig, ax = plt.subplots()
+            ax.plot(train_sizes, train_mean, label="Train")
+            ax.plot(train_sizes, test_mean, label="Validation")
+            ax.set_title("Learning Curve")
+            ax.set_xlabel("Training Size")
+            ax.set_ylabel("Accuracy")
+            ax.legend()
+            st.pyplot(fig)
 @st.cache_data:
-def mod(mo,df_mixte):
+def mod(df_mixte):
     df=df_mixte
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
@@ -226,10 +240,27 @@ def mod(mo,df_mixte):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-        cou(mo)
-        roccurve(mo)
+        st.markdown("### 🎓 Courbe d'apprentissage")
+
+         with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+          
+            train_sizes, train_scores, test_scores = learning_curve(
+                model, X, y, cv=5, scoring='accuracy',
+                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
+            )
+            train_mean = np.mean(train_scores, axis=1)
+            test_mean = np.mean(test_scores, axis=1)
+            fig, ax = plt.subplots()
+            ax.plot(train_sizes, train_mean, label="Train")
+            ax.plot(train_sizes, test_mean, label="Validation")
+            ax.set_title("Learning Curve")
+            ax.set_xlabel("Training Size")
+            ax.set_ylabel("Accuracy")
+            ax.legend()
+            st.pyplot(fig)
+        
 @st.cache_data
-def mod(mo,df_ctgan_100K):
+def modx(df_ctgan_100K):
     df=df_ctgan_100K
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
@@ -279,8 +310,49 @@ def mod(mo,df_ctgan_100K):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-       cou(mo)
-       roccurve(mo)
+       
+         st.markdown("### 🎓 Courbe d'apprentissage")
+
+         with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+          
+            train_sizes, train_scores, test_scores = learning_curve(
+                model, X, y, cv=5, scoring='accuracy',
+                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
+            )
+            train_mean = np.mean(train_scores, axis=1)
+            test_mean = np.mean(test_scores, axis=1)
+            fig, ax = plt.subplots()
+            ax.plot(train_sizes, train_mean, label="Train")
+            ax.plot(train_sizes, test_mean, label="Validation")
+            ax.set_title("Learning Curve")
+            ax.set_xlabel("Training Size")
+            ax.set_ylabel("Accuracy")
+            ax.legend()
+            st.pyplot(fig)
+          st.markdown("### ROC curve")
+
+         with st.spinner(f"⏳ ROC Curve {name} en cours..."):
+            model.fit(X_train, y_train)
+
+            y_pred = model.predict(X_test)
+            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
+
+ 
+            
+            if y_proba is not None:
+                fpr, tpr, _ = roc_curve(y_test, y_proba)
+                fig_roc, ax_roc = plt.subplots()
+                auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
+
+                ax_roc.plot(fpr, tpr, label=f"ROC (AUC = {auc:.2f})")
+                ax_roc.plot([0, 1], [0, 1], 'k--')
+                ax_roc.set_xlabel('Faux positifs')
+
+                ax_roc.set_ylabel('Vrais positifs')
+                ax_roc.legend()
+                st.pyplot(fig_roc)
+        
+
 @st.cache_data
 def cou(mo):
 
@@ -303,6 +375,7 @@ def cou(mo):
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
+         
 @st.cache_data
 def roc(mo):
 
@@ -539,20 +612,20 @@ if 'go_model' not in st.session_state:
 if go_model:
  if dataset_choice==['TVAE']:
     st.session_state.go_model=True
-    mod(choix_models,df_tvae)
+    modx(df_tvae)
  elif dataset_choice==['Original']:
     st.session_state.go_model=True
-    mod(choix_models,df_original)
+    modx(df_original)
 
  elif dataset_choice==['CTGAN_100K']:
     st.session_state.go_model=True
-    mod(choix_models,df_ctgan_100K)
+    modx(df_ctgan_100K)
 
  elif 'Original' in dataset_choice and 'TVAE'  in dataset_choice:
     st.session_state.go_model=True
-    mod(choix_models,df_mixte)
+    modx(df_mixte)
  else:
-    mod(choix_models,df_original)
+    modx(df_original)
      
 
     
