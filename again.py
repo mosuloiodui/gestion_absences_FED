@@ -23,7 +23,7 @@ dataset_paths = {
     "CTGAN_100K_2":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_2.csv",
     "CTGAN_100K_3":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_3.csv",
     "CTGAN_100K_4":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_4.csv",
-    "CTGAN_100K_5":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_5.csv"
+    "CTGAN_100K_5":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_5.csv",
     "CTGAN_100K_6":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_6.csv",
     "CTGAN_100K_7":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_7.csv",
     "CTGAN_100K_8":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_8.csv",
