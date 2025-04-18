@@ -329,130 +329,17 @@ def modx(df_ctgan_100K):
        
         st.markdown("### 🎓 Courbe d'apprentissage")
   
-        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
-          
-            train_sizes, train_scores, test_scores = learning_curve(
-                model, X, y, cv=5, scoring='accuracy',
-                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
-            )
+        
+
         with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-            model.fit(X_train, y_train)
-            y_pred = model.predict(X_test)
-            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
-
-        acc = accuracy_score(y_test, y_pred)
-        recall = recall_score(y_test, y_pred)
-        precision = precision_score(y_test, y_pred)
-        f1 = f1_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
-
-        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
-        st.markdown(f"""
-        ✅ **Accuracy**        : `{acc:.4f}`  
-        ✅ **Recall Score**    : `{recall:.4f}`  
-        ✅ **Precision Score** : `{precision:.4f}`  
-        ✅ **F1 Score**        : `{f1:.4f}`  
-        ✅ **AUC-ROC**         : `{auc}`
-        """)
-
-        with st.expander("📋 Rapport détaillé"):
-            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
-            st.text(rapport)
-            st.markdown("### 🧾 Matrice de confusion")
+                 cm = confusion_matrix(y_test, y_pred)
+                 fig_cm, ax_cm = plt.subplots()
+                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
+                 disp.plot(ax=ax_cm, cmap="Blues")
+                 st.pyplot(fig_cm)
             
-
-            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-                 cm = confusion_matrix(y_test, y_pred)
-                 fig_cm, ax_cm = plt.subplots()
-                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
-                 disp.plot(ax=ax_cm, cmap="Blues")
-                 st.pyplot(fig_cm)
-            fig, ax = plt.subplots()
-            with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
-          
-            train_sizes, train_scores, test_scores = learning_curve(
-                model, X, y, cv=5, scoring='accuracy',
-                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
-            )
-            with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
-          
-            train_sizes, train_scores, test_scores = learning_curve(
-                model, X, y, cv=5, scoring='accuracy',
-                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
-            )
-        with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-            model.fit(X_train, y_train)
-            y_pred = model.predict(X_test)
-            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
-
-        acc = accuracy_score(y_test, y_pred)
-        recall = recall_score(y_test, y_pred)
-        precision = precision_score(y_test, y_pred)
-        f1 = f1_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
-
-        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
-        st.markdown(f"""
-        ✅ **Accuracy**        : `{acc:.4f}`  
-        ✅ **Recall Score**    : `{recall:.4f}`  
-        ✅ **Precision Score** : `{precision:.4f}`  
-        ✅ **F1 Score**        : `{f1:.4f}`  
-        ✅ **AUC-ROC**         : `{auc}`
-        """)
-
-        with st.expander("📋 Rapport détaillé"):
-            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
-            st.text(rapport)
-            st.markdown("### 🧾 Matrice de confusion")
-
-            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-                 cm = confusion_matrix(y_test, y_pred)
-                 fig_cm, ax_cm = plt.subplots()
-                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
-                 disp.plot(ax=ax_cm, cmap="Blues")
-                 st.pyplot(fig_cm)
-            fig, ax = plt.subplots()
             train_mean = np.mean(train_scores, axis=1)
             test_mean = np.mean(test_scores, axis=1)
-            ax.plot(train_sizes, train_mean, label="Train")
-            ax.plot(train_sizes, test_mean, label="Validation")
-            ax.set_title("Learning Curve")
-            ax.set_xlabel("Training Size")
-            ax.set_ylabel("Accuracy")
-            ax.legend()
-            st.pyplot(fig)
-        st.markdown("### ROC curve")
-        with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-            model.fit(X_train, y_train)
-            y_pred = model.predict(X_test)
-            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
-
-        acc = accuracy_score(y_test, y_pred)
-        recall = recall_score(y_test, y_pred)
-        precision = precision_score(y_test, y_pred)
-        f1 = f1_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
-
-        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
-        st.markdown(f"""
-        ✅ **Accuracy**        : `{acc:.4f}`  
-        ✅ **Recall Score**    : `{recall:.4f}`  
-        ✅ **Precision Score** : `{precision:.4f}`  
-        ✅ **F1 Score**        : `{f1:.4f}`  
-        ✅ **AUC-ROC**         : `{auc}`
-        """)
-
-        with st.expander("📋 Rapport détaillé"):
-            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
-            st.text(rapport)
-            st.markdown("### 🧾 Matrice de confusion")
-
-            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-                 cm = confusion_matrix(y_test, y_pred)
-                 fig_cm, ax_cm = plt.subplots()
-                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
-                 disp.plot(ax=ax_cm, cmap="Blues")
-                 st.pyplot(fig_cm)
             fig, ax = plt.subplots()
             ax.plot(train_sizes, train_mean, label="Train")
             ax.plot(train_sizes, test_mean, label="Validation")
@@ -461,36 +348,6 @@ def modx(df_ctgan_100K):
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
-        st.markdown("### ROC curve")
-            ax.plot(train_sizes, train_mean, label="Train")
-            ax.plot(train_sizes, test_mean, label="Validation")
-            ax.set_title("Learning Curve")
-            ax.set_xlabel("Training Size")
-            ax.set_ylabel("Accuracy")
-            ax.legend()
-            st.pyplot(fig)
-        st.markdown("### ROC curve")
-      
-        with st.spinner(f"⏳ ROC Curve  en cours..."):
-            model.fit(X_train, y_train)
-
-            y_pred = model.predict(X_test)
-            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
-            
- 
-            
-            if y_proba is not None:
-                fpr, tpr, _ = roc_curve(y_test, y_proba)
-                fig_roc, ax_roc = plt.subplots()
-                auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
-
-                ax_roc.plot(fpr, tpr, label=f"ROC (AUC = {auc:.2f})")
-                ax_roc.plot([0, 1], [0, 1], 'k--')
-                ax_roc.set_xlabel('Faux positifs')
-
-                ax_roc.set_ylabel('Vrais positifs')
-                ax_roc.legend()
-                st.pyplot(fig_roc)
         
 
 @st.cache_data
