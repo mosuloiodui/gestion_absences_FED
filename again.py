@@ -147,7 +147,8 @@ def tsne(df):
 st.sidebar.title("📂 Dataset Selection")
 if "datasets_choisis" not in st.session_state:
     st.session_state.datasets_choisis = []
-
+if "df" not in st.session_state:
+    st.session_state.df = []
 dataset_choice = st.sidebar.multiselect(
     "Choisissez un ou plusieurs datasets",
     options=['Original','CTGAN_100k','CTGAN','TVAE','CouplaGAN'],default=['Original']
@@ -167,7 +168,7 @@ def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
 # ---- UTILISATION ----
 if dataset_choice:
     df = charger_les_datasets(dataset_choice, dataset_paths)
-    st.session_state.datasets_choisis = df
+    st.session_state.df = df
 
    
 
