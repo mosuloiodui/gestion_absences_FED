@@ -113,7 +113,7 @@ def modx(df_original):
             st.text(rapport)
             st.markdown("### 🧾 Matrice de confusion")
 
-            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            with st.spinner(f"⏳ Entraînement du modèle  en cours..."):
                  cm = confusion_matrix(y_test, y_pred)
                  fig_cm, ax_cm = plt.subplots()
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
@@ -122,7 +122,7 @@ def modx(df_original):
         st.markdown("### 🎓 Courbe d'apprentissage")
 
 
-        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
@@ -157,7 +157,7 @@ def modx(df_tave):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
     if True:
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+        with st.spinner(f"⏳ Entraînement du modèle  en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
@@ -168,7 +168,7 @@ def modx(df_tave):
         f1 = f1_score(y_test, y_pred)
         auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
 
-        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
+        st.title(f"---\n### 🔍 Résultats pour le modèle")
         st.markdown(f"""
         ✅ **Accuracy**        : `{acc:.4f}`  
         ✅ **Recall Score**    : `{recall:.4f}`  
@@ -182,7 +182,7 @@ def modx(df_tave):
             st.text(rapport)
             st.markdown("### 🧾 Matrice de confusion")
 
-            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
                  cm = confusion_matrix(y_test, y_pred)
                  fig_cm, ax_cm = plt.subplots()
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
@@ -190,7 +190,7 @@ def modx(df_tave):
                  st.pyplot(fig_cm)
         st.markdown("### 🎓 Courbe d'apprentissage")
 
-        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
@@ -224,7 +224,7 @@ def modx(df_mixte):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
     if True:
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+        with st.spinner(f"⏳ Entraînement du modèle en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
@@ -235,7 +235,7 @@ def modx(df_mixte):
         f1 = f1_score(y_test, y_pred)
         auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
 
-        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
+        st.title(f"---\n### 🔍 Résultats pour le modèle")
         st.markdown(f"""
         ✅ **Accuracy**        : `{acc:.4f}`  
         ✅ **Recall Score**    : `{recall:.4f}`  
@@ -249,7 +249,7 @@ def modx(df_mixte):
             st.text(rapport)
             st.markdown("### 🧾 Matrice de confusion")
 
-            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
                  cm = confusion_matrix(y_test, y_pred)
                  fig_cm, ax_cm = plt.subplots()
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
@@ -259,7 +259,7 @@ def modx(df_mixte):
     
         st.markdown("### 🎓 Courbe d'apprentissage")
 
-        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
@@ -305,7 +305,7 @@ def modx(df_ctgan_100K):
         f1 = f1_score(y_test, y_pred)
         auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
 
-        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
+        st.title(f"---\n### 🔍 Résultats pour le modèle")
         st.markdown(f"""
         ✅ **Accuracy**        : `{acc:.4f}`  
         ✅ **Recall Score**    : `{recall:.4f}`  
@@ -319,7 +319,7 @@ def modx(df_ctgan_100K):
             st.text(rapport)
             st.markdown("### 🧾 Matrice de confusion")
 
-            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
                  cm = confusion_matrix(y_test, y_pred)
                  fig_cm, ax_cm = plt.subplots()
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
@@ -329,13 +329,13 @@ def modx(df_ctgan_100K):
        
         st.markdown("### 🎓 Courbe d'apprentissage")
   
-        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
                 train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
             )
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+        with st.spinner(f"⏳ Entraînement du modèle en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
@@ -360,7 +360,7 @@ def modx(df_ctgan_100K):
             st.text(rapport)
             st.markdown("### 🧾 Matrice de confusion")
 
-            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
                  cm = confusion_matrix(y_test, y_pred)
                  fig_cm, ax_cm = plt.subplots()
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
@@ -376,7 +376,7 @@ def modx(df_ctgan_100K):
             st.pyplot(fig)
         st.markdown("### ROC curve")
 
-        with st.spinner(f"⏳ ROC Curve {name} en cours..."):
+        with st.spinner(f"⏳ ROC Curve  en cours..."):
             model.fit(X_train, y_train)
 
             y_pred = model.predict(X_test)
