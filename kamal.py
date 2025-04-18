@@ -290,7 +290,7 @@ elif dataset_choice==['Original']:
     st.session_state.df = df
     str='Original'
 elif dataset_choice==['CTGAN_100K']:
-      df = df_original
+      df = df_ctgan_100K
       st.session_state.df = df
       str='CTGAN_100K'
 else:
