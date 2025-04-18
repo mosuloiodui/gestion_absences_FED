@@ -294,9 +294,9 @@ elif dataset_choice==['CTGAN_100K']:
       st.session_state.df = df
       str='CTGAN_100K'
 else:
-      df = df_mixte
+      df = df_ctgan_100K
       st.session_state.df = df
-      str='Origianl+TVAE'
+      str='CTGAN_100K'
     
 st.title("Ransomeware vs Goodware")
 go_data = st.sidebar.button(f"🚀 Go (Charger:{str})")
