@@ -212,6 +212,9 @@ else:
     st.session_state.df = df
     str='Original'
 st.title("Ransomaware vs Goodware")
+go_model = st.sidebar.button("🚀 Go (Exécuter Modèle)")
+if 'go_model' not in st.session_state:
+    st.session_state.go_model=False
 
 if dataset_choice:
   if go_data:
