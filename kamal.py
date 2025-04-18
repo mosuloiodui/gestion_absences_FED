@@ -88,7 +88,7 @@ def modx(df_original):
     st.sidebar.write("Chargement :",str)
 
     if True:
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+     with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
@@ -156,7 +156,7 @@ def modx(df_tave):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
     if True:
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+       with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
