@@ -119,25 +119,7 @@ def modx(df_original):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-        st.markdown("### 🎓 Courbe d'apprentissage")
-
-
-        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
-          
-            train_sizes, train_scores, test_scores = learning_curve(
-                model, X, y, cv=5, scoring='accuracy',
-                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
-            )
-            train_mean = np.mean(train_scores, axis=1)
-            test_mean = np.mean(test_scores, axis=1)
-            fig, ax = plt.subplots()
-            ax.plot(train_sizes, train_mean, label="Train")
-            ax.plot(train_sizes, test_mean, label="Validation")
-            ax.set_title("Learning Curve")
-            ax.set_xlabel("Training Size")
-            ax.set_ylabel("Accuracy")
-            ax.legend()
-            st.pyplot(fig) 
+        
     
 @st.cache_data
 def modx(df_tave):
@@ -188,24 +170,7 @@ def modx(df_tave):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-        st.markdown("### 🎓 Courbe d'apprentissage")
-
-        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
-          
-            train_sizes, train_scores, test_scores = learning_curve(
-                model, X, y, cv=5, scoring='accuracy',
-                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
-            )
-            train_mean = np.mean(train_scores, axis=1)
-            test_mean = np.mean(test_scores, axis=1)
-            fig, ax = plt.subplots()
-            ax.plot(train_sizes, train_mean, label="Train")
-            ax.plot(train_sizes, test_mean, label="Validation")
-            ax.set_title("Learning Curve")
-            ax.set_xlabel("Training Size")
-            ax.set_ylabel("Accuracy")
-            ax.legend()
-            st.pyplot(fig)
+       
 @st.cache_data
 def modx(df_mixte):
     df=df_mixte
@@ -244,37 +209,8 @@ def modx(df_mixte):
         ✅ **AUC-ROC**         : `{auc}`
         """)
 
-        with st.expander("📋 Rapport détaillé"):
-            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
-            st.text(rapport)
-            st.markdown("### 🧾 Matrice de confusion")
-
-            with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-                 cm = confusion_matrix(y_test, y_pred)
-                 fig_cm, ax_cm = plt.subplots()
-                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
-                 disp.plot(ax=ax_cm, cmap="Blues")
-                 st.pyplot(fig_cm)
-
-    
-        st.markdown("### 🎓 Courbe d'apprentissage")
-
-        with st.spinner(f"⏳ Courpe d'apprentissage en cours..."):
-          
-            train_sizes, train_scores, test_scores = learning_curve(
-                model, X, y, cv=5, scoring='accuracy',
-                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
-            )
-            train_mean = np.mean(train_scores, axis=1)
-            test_mean = np.mean(test_scores, axis=1)
-            fig, ax = plt.subplots()
-            ax.plot(train_sizes, train_mean, label="Train")
-            ax.plot(train_sizes, test_mean, label="Validation")
-            ax.set_title("Learning Curve")
-            ax.set_xlabel("Training Size")
-            ax.set_ylabel("Accuracy")
-            ax.legend()
-            st.pyplot(fig)
+       
+           
 name='XGBoost'       
 @st.cache_data
 def modx(df_ctgan_100K):
@@ -327,27 +263,6 @@ def modx(df_ctgan_100K):
                  st.pyplot(fig_cm)
    
        
-        st.markdown("### 🎓 Courbe d'apprentissage")
-  
-        
-
-        with st.spinner(f"⏳ Entraînement du modèle en cours..."):
-                 cm = confusion_matrix(y_test, y_pred)
-                 fig_cm, ax_cm = plt.subplots()
-                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
-                 disp.plot(ax=ax_cm, cmap="Blues")
-                 st.pyplot(fig_cm)
-            
-            train_mean = np.mean(train_scores, axis=1)
-            test_mean = np.mean(test_scores, axis=1)
-            fig, ax = plt.subplots()
-            ax.plot(train_sizes, train_mean, label="Train")
-            ax.plot(train_sizes, test_mean, label="Validation")
-            ax.set_title("Learning Curve")
-            ax.set_xlabel("Training Size")
-            ax.set_ylabel("Accuracy")
-            ax.legend()
-            st.pyplot(fig)
         
 
 @st.cache_data
