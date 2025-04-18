@@ -150,7 +150,7 @@ if "datasets_choisis" not in st.session_state:
 
 dataset_choice = st.sidebar.multiselect(
     "Choisissez un ou plusieurs datasets",
-    options=['Original,'CTGAN_100k',"CTGAN','TVAE','CouplaGAN'],default=['Original']
+    options=['Original','CTGAN_100k','CTGAN','TVAE','CouplaGAN'],default=['Original']
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
@@ -193,10 +193,10 @@ if dataset_choice:
 
 else:
       
-      st.sidebar.markdown("##pas de choix de dataset")
+      st.sidebar.markdown("pas de choix de dataset")
 if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
-        st.markdown(f"### t-SNE : {str}")
+        st.title(f"### t-SNE : {str}")
         with st.spinner("⏳ Exécution de t-SNE..."):
             tsne(st.session_state.df)
 
