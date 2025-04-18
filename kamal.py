@@ -19,15 +19,35 @@ from sklearn.manifold import TSNE
 dataset_paths = {
     "Original": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier.csv",
     "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_tvae%20(1).csv",
+    "CTGAN_100K_1":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_1.csv",
+    "CTGAN_100K_2":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_2.csv",
+    "CTGAN_100K_3":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_3.csv",
+    "CTGAN_100K_4":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_4.csv",
+    "CTGAN_100K_5":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_5.csv",
+    "CTGAN_100K_6":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_6.csv",
+    "CTGAN_100K_7":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_7.csv",
+    "CTGAN_100K_8":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_8.csv",
+    "CTGAN_100K_9":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_9.csv",
+    "CTGAN_100K_10":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_10.csv",
+    
 }
 @st.cache_data
 def read_tvae():
     return pd.read_csv('https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_tvae%20(1).csv')
 @st.cache_data
+def read_ctgan():
+    return pd.concat([pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)], ignore_index=True)
+@st.cache_data
+def read_mixte():
+    return pd.concat(read_tvae(),read_original())
+
+@st.cache_data
 def read_original():
     return  pd.read_csv('https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier.csv')
 df_tvae=read_tvae()
 df_original=read_original()
+df_ctgan_100K=read_ctgan()
+df_mixte=read_mixte()
 def create_model(model_name):
     if model_name == 'XGBoost':
         return xgb.XGBClassifier()
@@ -50,8 +70,8 @@ def create_model(model_name):
             ('mlp', MLPClassifier())
         ], voting='soft')
 @st.cache_data
-def xgboost():
-    model=xgb.XGBClassifier()
+def mod(mo):
+    model=create_model(mo)
     st.session_state.go_model=True
 
     str=""
@@ -97,7 +117,10 @@ def xgboost():
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
 @st.cache_data
-def courbedapprxgb():
+def courbedappr(mo):
+         model=create_model(mo)
+
+    
          st.markdown("### 🎓 Courbe d'apprentissage")
 
          with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
@@ -116,7 +139,8 @@ def courbedapprxgb():
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
-def roccurvexgb():
+def roccurve():
+         model=create_model(mo)
 
          st.markdown("### ROC curve")
 
@@ -193,6 +217,58 @@ def tsne(df_original):
     plt.ylabel("t-SNE 2")
     plt.grid(True)
     st.pyplot(fig)
+@st.cache_data
+def tsne(df_mixte):
+    
+    y = df["Sample_Type"]
+    X = df.drop("Sample_Type", axis=1)
+
+    # On garde que les colonnes numériques pour t-SNE
+    X_numeric = X.select_dtypes(include='number')
+
+    # Projection t-SNE
+    tsne_model = TSNE(n_components=2, random_state=42)
+    X_tsne = tsne_model.fit_transform(X_numeric)
+
+    # Couleurs personnalisées
+    colors = {1: "red", 0: "blue"}
+    point_colors = y.map(colors)
+
+    # Affichage
+    fig = plt.figure(figsize=(8, 6))
+    plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=point_colors)
+    plt.title("Projection t-SNE")
+    plt.xlabel("t-SNE 1")
+    plt.ylabel("t-SNE 2")
+    plt.grid(True)
+    st.pyplot(fig)
+@st.cache_data
+def tsne(df_ctgan_100K):
+    
+    y = df["Sample_Type"]
+    X = df.drop("Sample_Type", axis=1)
+
+    # On garde que les colonnes numériques pour t-SNE
+    X_numeric = X.select_dtypes(include='number')
+
+    # Projection t-SNE
+    tsne_model = TSNE(n_components=2, random_state=42)
+    X_tsne = tsne_model.fit_transform(X_numeric)
+
+    # Couleurs personnalisées
+    colors = {1: "red", 0: "blue"}
+    point_colors = y.map(colors)
+
+    # Affichage
+    fig = plt.figure(figsize=(8, 6))
+    plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=point_colors)
+    plt.title("Projection t-SNE")
+    plt.xlabel("t-SNE 1")
+    plt.ylabel("t-SNE 2")
+    plt.grid(True)
+    st.pyplot(fig)
+
+
 st.sidebar.title("📂 Dataset Selection")
 if "datasets_choisis" not in st.session_state:
     st.session_state.datasets_choisis = []
@@ -209,10 +285,19 @@ if dataset_choice==['TVAE']:
     df = df_tvae
     st.session_state.df = df
     str='TVAE'
-else:
+elif dataset_choice==['Original']:
     df = df_original
     st.session_state.df = df
     str='Original'
+elif dataset_choice==['CTGAN_100K']:
+      df = df_original
+      st.session_state.df = df
+      str='CTGAN_100K'
+else:
+      df = df_mixte
+      st.session_state.df = df
+      str='Origianl+TVAE'
+    
 st.title("Ransomaware vs Goodware")
 go_data = st.sidebar.button(f"🚀 Go (Charger:{str})")
 if 'go_data' not in st.session_state:
@@ -244,6 +329,20 @@ elif dataset_choice==['Original']:
         st.title(f' t-SNE : {str}')
         with st.spinner("⏳ Exécution de t-SNE..."):
             tsne(df_original)
+elif dataset_choice==['CTGAN_100K']:
+ if st.session_state.get("go_data", True):
+    if st.sidebar.button("t-SNE"):
+        st.title(f' t-SNE : {str}')
+        with st.spinner("⏳ Exécution de t-SNE..."):
+            tsne(df_ctgan_100K)
+else:
+ if st.session_state.get("go_data", True):
+    if st.sidebar.button("t-SNE"):
+        st.title(f' t-SNE : {str}')
+        with st.spinner("⏳ Exécution de t-SNE..."):
+            tsne(df_original)
+    
+
 
 # ---- SELECTION MODELE ----
 st.sidebar.write("---")
@@ -252,5 +351,5 @@ choix_models = st.sidebar.multiselect(
     options=["XGBoost", "RF", "SVM", "MLP", "Stack(XGBoost + SVM + MLP)", "Stack(XGBoost + RF + MLP)"],
     default=["XGBoost"]
 )
-   
+
 
