@@ -34,6 +34,7 @@ dataset_paths = {
     "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_tvae%20(1).csv",
     "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_ctgan.csv"
 }
+@st.cache_data
 CTGAN_100k=[pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
 
 
@@ -152,6 +153,7 @@ st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
 if dataset_choice:
+    @st.cache_data
     all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
     if 'CTGAN_100k' in dataset_choice:
         all_data.append(pd.concat(CTGAN_100K, axis=0))  # Concaténer les 10 parties du dataset CTGAN
