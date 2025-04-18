@@ -137,7 +137,7 @@ def modx(df_original):
             ax.set_xlabel("Training Size")
             ax.set_ylabel("Accuracy")
             ax.legend()
-            st.pyplot(fig) */
+            st.pyplot(fig) 
     
 @st.cache_data
 def modx(df_tave):
