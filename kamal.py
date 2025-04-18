@@ -571,7 +571,7 @@ elif dataset_choice==['Original']:
     df = df_original
     st.session_state.df = df
     str='Original'
-elif dataset_choice==['CTGAN_100K']:
+elif dataset_choice==['CTGAN_100k']:
       df = df_ctgan_100K
       st.session_state.df = df
       str='CTGAN_100K'
@@ -618,7 +618,7 @@ elif dataset_choice==['Original']:
         st.title(f' t-SNE : {str}')
         with st.spinner("⏳ Exécution de t-SNE..."):
             tsne(df_original)
-elif dataset_choice==['CTGAN_100K']:
+elif dataset_choice==['CTGAN_100k']:
  if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
         st.title(f' t-SNE : {str}')
@@ -662,7 +662,7 @@ if go_model:
     st.session_state.go_model=True
     modx(df_original)
 
- elif dataset_choice==['CTGAN_100K']:
+ elif dataset_choice==['CTGAN_100k']:
     st.session_state.go_model=True
     modx(df_ctgan_100K)
 
