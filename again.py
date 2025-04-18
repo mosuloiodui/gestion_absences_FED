@@ -36,7 +36,7 @@ dataset_paths = {
 }
 @st.cache_data
 def panda():
-    return [pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
+    return [dataset_paths[f'CTGAN_100K_{i+1}'] for i in range(10)]
   
 CTGAN100k=panda()
 
@@ -152,13 +152,15 @@ if "datasets_choisis" not in st.session_state:
 
 dataset_choice = st.sidebar.multiselect(
     "Choisissez un ou plusieurs datasets",
-    options=list(dataset_paths.keys()),default=['Original']
+   options=['Original','CTGAN_100k','CTGAN','TVAE','CouplaGAN'],default=['Original']
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
 if dataset_choice:
     all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
+    if 'CTGAN_100k' in dataset_choice:
+        all_data.append(CTGAN100K)
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
     str=""
@@ -168,6 +170,7 @@ if dataset_choice:
         str=str+dataset_choice[i]
         if j<len(dataset_choice):
               str=str+"+"
+        
 if "df" not in st.session_state:
     st.session_state.df = pd.DataFrame()
 st.session_state.df=df
@@ -272,7 +275,7 @@ if st.session_state.go_model:
          model = create_model(name)
          st.markdown("### 🎓 Courbe d'apprentissage")
 
-         with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+         with st.spinner(f"⏳ Courbe d'apprentissage{name} en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
