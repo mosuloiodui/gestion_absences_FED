@@ -137,7 +137,7 @@ def modx(df_original):
             ax.legend()
             st.pyplot(fig)
     
-@st.data_cache
+@st.cache_data
 def modx(df_tave):
     df=df_tvae
     X = df.drop('Sample_Type', axis=1)
@@ -204,7 +204,7 @@ def modx(df_tave):
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
-@st.cache_data:
+@st.cache_data
 def modx(df_mixte):
     df=df_mixte
     X = df.drop('Sample_Type', axis=1)
