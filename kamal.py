@@ -170,8 +170,8 @@ def roccurve():
 @st.cache_data
 def tsne(df_tvae):
     
-    y = df["Sample_Type"]
-    X = df.drop("Sample_Type", axis=1)
+    y = df_tvae["Sample_Type"]
+    X = df_tvae.drop("Sample_Type", axis=1)
 
     # On garde que les colonnes numériques pour t-SNE
     X_numeric = X.select_dtypes(include='number')
@@ -195,8 +195,8 @@ def tsne(df_tvae):
 @st.cache_data
 def tsne(df_original):
     
-    y = df["Sample_Type"]
-    X = df.drop("Sample_Type", axis=1)
+    y = df_original["Sample_Type"]
+    X = df_original.drop("Sample_Type", axis=1)
 
     # On garde que les colonnes numériques pour t-SNE
     X_numeric = X.select_dtypes(include='number')
@@ -220,8 +220,8 @@ def tsne(df_original):
 @st.cache_data
 def tsne(df_mixte):
     
-    y = df["Sample_Type"]
-    X = df.drop("Sample_Type", axis=1)
+    y = df_mixte["Sample_Type"]
+    X = df_mixte.drop("Sample_Type", axis=1)
 
     # On garde que les colonnes numériques pour t-SNE
     X_numeric = X.select_dtypes(include='number')
@@ -245,8 +245,8 @@ def tsne(df_mixte):
 @st.cache_data
 def tsne(df_ctgan_100K):
     
-    y = df["Sample_Type"]
-    X = df.drop("Sample_Type", axis=1)
+    y = df_ctgan_100K["Sample_Type"]
+    X = df_ctgan_100K.drop("Sample_Type", axis=1)
 
     # On garde que les colonnes numériques pour t-SNE
     X_numeric = X.select_dtypes(include='number')
@@ -305,6 +305,8 @@ if 'go_data' not in st.session_state:
 
 if dataset_choice:
   if go_data:
+    df=st.session_state.df 
+
     dtt=df
     dtt['Sample_Type']=dtt['Sample_Type'].replace({0:"G",1:"R"})
     st.sidebar.write("Chargement: ",str)
@@ -323,7 +325,7 @@ if dataset_choice==['TVAE']:
     if st.sidebar.button("t-SNE"):
         st.title(f' t-SNE : {str}')
         with st.spinner("⏳ Exécution de t-SNE..."):
-            tsne(df_tvae)
+           tsne(df_tvae)
 elif dataset_choice==['Original']:
    if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
