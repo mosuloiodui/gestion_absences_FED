@@ -31,8 +31,8 @@ dataset_paths = {
     "CTGAN_100K_10":"https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier_part_10.csv",
     
     
-    "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_tvae%20(1).csv",
-    "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_ctgan.csv"
+    "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_tvae%20(1).csv",
+    "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_ctgan.csv"
 }
 CTGAN_100k=[pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
 
