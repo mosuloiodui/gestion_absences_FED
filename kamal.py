@@ -120,8 +120,23 @@ def modx(df_original):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-      cou(mo)
-      roccurve(mo)
+        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+          
+            train_sizes, train_scores, test_scores = learning_curve(
+                model, X, y, cv=5, scoring='accuracy',
+                train_sizes=np.linspace(0.1, 1.0, 5), random_state=42
+            )
+            train_mean = np.mean(train_scores, axis=1)
+            test_mean = np.mean(test_scores, axis=1)
+            fig, ax = plt.subplots()
+            ax.plot(train_sizes, train_mean, label="Train")
+            ax.plot(train_sizes, test_mean, label="Validation")
+            ax.set_title("Learning Curve")
+            ax.set_xlabel("Training Size")
+            ax.set_ylabel("Accuracy")
+            ax.legend()
+            st.pyplot(fig)
+    
 @st.data_cache
 def modx(df_tave):
     df=df_tvae
@@ -190,7 +205,7 @@ def modx(df_tave):
             ax.legend()
             st.pyplot(fig)
 @st.cache_data:
-def mod(df_mixte):
+def modx(df_mixte):
     df=df_mixte
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
