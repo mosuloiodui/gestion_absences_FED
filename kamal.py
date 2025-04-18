@@ -70,7 +70,11 @@ def create_model(model_name):
             ('mlp', MLPClassifier())
         ], voting='soft')
 @st.cache_data
-def mod(mo):
+def mod(mo,df_original):
+    df=df_otiginal
+    X = df.drop('Sample_Type', axis=1)
+    y = df['Sample_Type']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     model=create_model(mo)
     st.session_state.go_model=True
 
@@ -116,9 +120,169 @@ def mod(mo):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
+      cou(mo)
+      roccurve(mo)
+@st.data_cache
+def mod(mo,df_tave):
+    df=df_tvae
+    X = df.drop('Sample_Type', axis=1)
+    y = df['Sample_Type']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model=create_model(mo)
+    st.session_state.go_model=True
+
+    str=""
+    j=0
+    for i in range(len(choix_models)):
+        j+=1
+        str=str+choix_models[i]
+        if j<len(choix_models):
+              str=str+" et "
+    st.sidebar.write("Chargement :",str)
+
+    for name in choix_models:
+        model = create_model(name)
+        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            model.fit(X_train, y_train)
+            y_pred = model.predict(X_test)
+            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
+
+        acc = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
+
+        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
+        st.markdown(f"""
+        ✅ **Accuracy**        : `{acc:.4f}`  
+        ✅ **Recall Score**    : `{recall:.4f}`  
+        ✅ **Precision Score** : `{precision:.4f}`  
+        ✅ **F1 Score**        : `{f1:.4f}`  
+        ✅ **AUC-ROC**         : `{auc}`
+        """)
+
+        with st.expander("📋 Rapport détaillé"):
+            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
+            st.text(rapport)
+            st.markdown("### 🧾 Matrice de confusion")
+
+            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+                 cm = confusion_matrix(y_test, y_pred)
+                 fig_cm, ax_cm = plt.subplots()
+                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
+                 disp.plot(ax=ax_cm, cmap="Blues")
+                 st.pyplot(fig_cm)
+        cou(mo)
+        roccurve(mo)
+@st.cache_data:
+def mod(mo,df_mixte):
+    df=df_mixte
+    X = df.drop('Sample_Type', axis=1)
+    y = df['Sample_Type']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model=create_model(mo)
+    st.session_state.go_model=True
+
+    str=""
+    j=0
+    for i in range(len(choix_models)):
+        j+=1
+        str=str+choix_models[i]
+        if j<len(choix_models):
+              str=str+" et "
+    st.sidebar.write("Chargement :",str)
+
+    for name in choix_models:
+        model = create_model(name)
+        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            model.fit(X_train, y_train)
+            y_pred = model.predict(X_test)
+            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
+
+        acc = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
+
+        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
+        st.markdown(f"""
+        ✅ **Accuracy**        : `{acc:.4f}`  
+        ✅ **Recall Score**    : `{recall:.4f}`  
+        ✅ **Precision Score** : `{precision:.4f}`  
+        ✅ **F1 Score**        : `{f1:.4f}`  
+        ✅ **AUC-ROC**         : `{auc}`
+        """)
+
+        with st.expander("📋 Rapport détaillé"):
+            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
+            st.text(rapport)
+            st.markdown("### 🧾 Matrice de confusion")
+
+            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+                 cm = confusion_matrix(y_test, y_pred)
+                 fig_cm, ax_cm = plt.subplots()
+                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
+                 disp.plot(ax=ax_cm, cmap="Blues")
+                 st.pyplot(fig_cm)
+        cou(mo)
+        roccurve(mo)
 @st.cache_data
-def courbedappr(mo):
-         model=create_model(mo)
+def mod(mo,df_ctgan_100K):
+    df=df_ctgan_100K
+    X = df.drop('Sample_Type', axis=1)
+    y = df['Sample_Type']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model=create_model(mo)
+    st.session_state.go_model=True
+
+    str=""
+    j=0
+    for i in range(len(choix_models)):
+        j+=1
+        str=str+choix_models[i]
+        if j<len(choix_models):
+              str=str+" et "
+    st.sidebar.write("Chargement :",str)
+
+    for name in choix_models:
+        model = create_model(name)
+        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+            model.fit(X_train, y_train)
+            y_pred = model.predict(X_test)
+            y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
+
+        acc = accuracy_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+        auc = roc_auc_score(y_test, y_proba) if y_proba is not None else "N/A"
+
+        st.title(f"---\n### 🔍 Résultats pour le modèle : `{name}`")
+        st.markdown(f"""
+        ✅ **Accuracy**        : `{acc:.4f}`  
+        ✅ **Recall Score**    : `{recall:.4f}`  
+        ✅ **Precision Score** : `{precision:.4f}`  
+        ✅ **F1 Score**        : `{f1:.4f}`  
+        ✅ **AUC-ROC**         : `{auc}`
+        """)
+
+        with st.expander("📋 Rapport détaillé"):
+            rapport = classification_report(y_test, y_pred,target_names=["G", "R"], output_dict=False)
+            st.text(rapport)
+            st.markdown("### 🧾 Matrice de confusion")
+
+            with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+                 cm = confusion_matrix(y_test, y_pred)
+                 fig_cm, ax_cm = plt.subplots()
+                 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
+                 disp.plot(ax=ax_cm, cmap="Blues")
+                 st.pyplot(fig_cm)
+       cou(mo)
+       roccurve(mo)
+@st.cache_data
+def cou(mo):
 
     
          st.markdown("### 🎓 Courbe d'apprentissage")
@@ -140,8 +304,7 @@ def courbedappr(mo):
             ax.legend()
             st.pyplot(fig)
 @st.cache_data
-def roccurve(mo):
-         model=create_model(mo)
+def roc(mo):
 
          st.markdown("### ROC curve")
 
@@ -343,6 +506,12 @@ elif dataset_choice==['CTGAN_100K']:
         st.title(f' t-SNE : {str}')
         with st.spinner("⏳ Exécution de t-SNE..."):
             tsne(df_ctgan_100K)
+elif 'Original' in dataset_choice and 'TVAE'  in dataset_choice:
+ if st.session_state.get("go_data", True):
+    if st.sidebar.button("t-SNE"):
+        st.title(f' t-SNE : {str}')
+        with st.spinner("⏳ Exécution de t-SNE..."):
+            tsne(df_mixte)
 else:
  if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
@@ -368,11 +537,32 @@ if dataset_choice:
 if 'go_model' not in st.session_state:
     st.session_state.go_model=False
 if go_model:
- if dataset_choice:
+ if dataset_choice==['TVAE']:
     st.session_state.go_model=True
-    mod(choix_models)
-    courbedappr(choix_models)
-    roccurve(choix_models)
+    mod(choix_models,df_tvae)
+ elif dataset_choice==['Original']:
+    st.session_state.go_model=True
+    mod(choix_models,df_original)
+
+ elif dataset_choice==['CTGAN_100K']:
+    st.session_state.go_model=True
+    mod(choix_models,df_ctgan_100K)
+
+ elif 'Original' in dataset_choice and 'TVAE'  in dataset_choice:
+    st.session_state.go_model=True
+    mod(choix_models,df_mixte)
+ else:
+    mod(choix_models,df_original)
+     
+
+    
+
+
+   
+
+   
+
+   
 
     
 
