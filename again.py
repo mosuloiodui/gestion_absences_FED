@@ -155,13 +155,19 @@ dataset_choice = st.sidebar.multiselect(
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
-all_data=[]
+
 if dataset_choice:
-    all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
-    if 'CTGAN_100k' in dataset_choice:
-        all_data.append(CTGAN100K)
-    df = pd.concat(all_data, axis=0)
-    df = shuffle(df, random_state=42)
+    all_data = []
+    
+    for name in dataset_choice:
+        if name == 'CTGAN_100k':
+            all_data.append(load_ctgan_100k())
+        elif name in dataset_paths:
+            all_data.append(pd.read_csv(dataset_paths[name]))
+    
+    if all_data:
+        df = pd.concat(all_data, axis=0)
+        df = shuffle(df, random_state=42)
     str=""
     j=0
     for i in range(len(dataset_choice)):                                                                                                                    
