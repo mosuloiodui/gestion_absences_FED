@@ -230,13 +230,13 @@ if dataset_choice:
 else:
       
       st.sidebar.markdown("pas de choix de dataset")
-if dataset_choise=='TVAE':
+if dataset_choice==['TVAE']:
    if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
         st.title(f' t-SNE : {str}')
         with st.spinner("⏳ Exécution de t-SNE..."):
             tsne(df_tvae)
-elif dataset_choise=='Original':
+elif dataset_choice==['Original']:
    if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
         st.title(f' t-SNE : {str}')
