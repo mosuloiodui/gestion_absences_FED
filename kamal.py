@@ -87,8 +87,7 @@ def modx(df_original):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
 
-    for name in choix_models:
-        model = create_model(name)
+    if True:
         with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
@@ -145,7 +144,7 @@ def modx(df_tave):
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=xgb.XGBoost()
+    model=xgb.XGBClassifier()
     st.session_state.go_model=True
 
     str=""
@@ -156,9 +155,7 @@ def modx(df_tave):
         if j<len(choix_models):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
-
-    for name in choix_models:
-        model = create_model(name)
+    if True:
         with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
@@ -214,7 +211,7 @@ def modx(df_mixte):
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=xgb.XGBoost()
+    model=xgb.XGBClassifier()
     st.session_state.go_model=True
 
     str=""
@@ -226,9 +223,8 @@ def modx(df_mixte):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
 
-    for name in choix_models:
-        model = create_model(name)
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+    if True:
+       with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
@@ -284,7 +280,7 @@ def modx(df_ctgan_100K):
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=xgb.XGBoost()
+    model=xgb.XGBClassifier()
     st.session_state.go_model=True
 
     str=""
@@ -296,9 +292,8 @@ def modx(df_ctgan_100K):
               str=str+" et "
     st.sidebar.write("Chargement :",str)
 
-    for name in choix_models:
-        model = create_model(name)
-        with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
+    if True:
+       with st.spinner(f"⏳ Entraînement du modèle {name} en cours..."):
             model.fit(X_train, y_train)
             y_pred = model.predict(X_test)
             y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, "predict_proba") else None
