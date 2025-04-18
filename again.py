@@ -160,12 +160,19 @@ st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
 @st.cache_data
+str1=''
 def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
     all_data = [lire_fichier(dataset_paths[name]) for name in selection if name in dataset_paths]
     if file in selection:
         all_data.append(pd.concat(CTGAN100K, axis=0))  # Concatène les 10 parties
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
+    j=0
+    for i in range(len(select)):
+        j+=1
+        str=str+selection[i]
+        if j<len(selection):
+              str=str+"+"
     return df
 
 # ---- UTILISATION ----
@@ -180,11 +187,11 @@ if dataset_choice:
 
 if "go_data" not in st.session_state:
     st.session_state.go_data = False
-go_data = st.sidebar.button("🚀 Go (Charger Dataset)")
+go_data = st.sidebar.button(f"🚀 Go (Charger {str})")
 str='lalla'
 
 # ---- PRINCIPAL ----
-st.title("Ransomaware vs Goodware")
+st.title("Ransomeware vs Goodware")
 
 if dataset_choice:
   if go_data:
