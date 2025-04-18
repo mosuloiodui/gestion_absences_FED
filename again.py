@@ -17,12 +17,25 @@ import openpyxl
 
 # ---- FICHIERS ----
 dataset_paths = {
-    "Original": "C:\\Users\\hp\\Downloads\\dataset_reduit_et_normaliser (2).csv",
-    "CouplaGAN": "C:\\Users\\hp\\Downloads\\dataset_synthetique_copulagan2.csv",
-    "CTGAN_100K":"C:\\Users\\hp\\Downloads\\synthetic_data (1) (1).csv",
-    "TVAE": "C:\\Users\\hp\\Downloads\\dataset_synthetique_tvae (1).csv",
-    "CTGAN": "C:\\Users\\hp\\Downloads\\dataset_synthetique_ctgan.csv"
+    "Original": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier.csv",
+    "CouplaGAN": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_copulagan2.csv",
+    "CTGAN_100K_1":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_1.csv",
+    "CTGAN_100K_2":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_2.csv",
+    "CTGAN_100K_3":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_3.csv",
+    "CTGAN_100K_4":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_4.csv",
+    "CTGAN_100K_5":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_5.csv"
+    "CTGAN_100K_6":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_6.csv",
+    "CTGAN_100K_7":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_7.csv",
+    "CTGAN_100K_8":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_8.csv",
+    "CTGAN_100K_9":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_9.csv",
+    "CTGAN_100K_10":"https://github.com/mosuloiodui/gestion_absences_FED/blob/main/fichier_part_10.csv",
+    
+    
+    "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_tvae%20(1).csv",
+    "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/blob/main/dataset_synthetique_ctgan.csv"
 }
+CTGAN_100k=[pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
+
 
 # ---- FONCTION DE LECTURE ----
 def lire_fichier(chemin):
@@ -127,7 +140,7 @@ def tsne(df):
 
 
 # ---- SIDEBAR ----
-st.sidebar.title("📂 Sélection du Dataset")
+st.sidebar.title("📂 Dataset Selection")
 if "datasets_choisis" not in st.session_state:
     st.session_state.datasets_choisis = []
 
@@ -140,6 +153,8 @@ df = pd.DataFrame()
 
 if dataset_choice:
     all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
+    if 'CTGAN_100k' in dataset_choice:
+        all_data.append(pd.concat(CTGAN_100K, axis=0))  # Concaténer les 10 parties du dataset CTGAN
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
     str=""
