@@ -14,6 +14,8 @@ from sklearn.neural_network import MLPClassifier
 import xgboost as xgb
 from sklearn.utils import shuffle
 import openpyxl
+from sklearn.manifold import TSNE
+
 dataset_paths = {
     "Original": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/fichier.csv",
     "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_tvae%20(1).csv",
