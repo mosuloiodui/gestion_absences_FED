@@ -34,10 +34,9 @@ dataset_paths = {
     "TVAE": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_tvae%20(1).csv",
     "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_ctgan.csv"
 }
-@st.cache_data
+
 def panda():
-    return [dataset_paths[f'CTGAN_100K_{i+1}'] for i in range(10)]
-  
+    return [dataset_paths[f'CTGAN_100K_{i+1}']for i in range(10)]
 CTGAN100k=panda()
 
 
@@ -156,7 +155,7 @@ dataset_choice = st.sidebar.multiselect(
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
-
+all_data=[]
 if dataset_choice:
     all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
     if 'CTGAN_100k' in dataset_choice:
