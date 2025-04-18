@@ -139,7 +139,8 @@ def courbedappr(mo):
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
-def roccurve():
+@st.cache_data
+def roccurve(mo):
          model=create_model(mo)
 
          st.markdown("### ROC curve")
@@ -293,10 +294,14 @@ elif dataset_choice==['CTGAN_100K']:
       df = df_ctgan_100K
       st.session_state.df = df
       str='CTGAN_100K'
-else:
-      df = df_ctgan_100K
+elif 'Original' in dataset_choice and 'TVAE:
+      df = df_mixte
       st.session_state.df = df
       str='CTGAN_100K'
+else:
+    df = df_original
+    st.session_state.df = df
+    str='Original'
     
 st.title("Ransomeware vs Goodware")
 go_data = st.sidebar.button(f"🚀 Go (Charger:{str})")
@@ -354,5 +359,23 @@ choix_models = st.sidebar.multiselect(
     options=["XGBoost", "RF", "SVM", "MLP", "Stack(XGBoost + SVM + MLP)", "Stack(XGBoost + RF + MLP)"],
     default=["XGBoost"]
 )
+go_model = st.sidebar.button("🚀 Go (Exécuter Modèle)")
+if dataset_choice:
+  df=st.session_state.df
+  X = df.drop('Sample_Type', axis=1)
+  y = df['Sample_Type']
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+if 'go_model' not in st.session_state:
+    st.session_state.go_model=False
+if go_model:
+ if dataset_choice:
+    st.session_state.go_model=True
+    mo(choix_models)
+    courbedappr(choix_models)
+    roccurve(choix_models)
 
+    
+
+    
+    
 
