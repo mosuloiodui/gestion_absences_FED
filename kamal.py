@@ -298,7 +298,7 @@ else:
       st.session_state.df = df
       str='Origianl+TVAE'
     
-st.title("Ransomaware vs Goodware")
+st.title("Ransomeware vs Goodware")
 go_data = st.sidebar.button(f"🚀 Go (Charger:{str})")
 if 'go_data' not in st.session_state:
     st.session_state.go_data=False
@@ -312,7 +312,6 @@ if dataset_choice:
     st.dataframe(dtt.head(11))
     dtt['Sample_Type']=dtt['Sample_Type'].replace({"G":0,"R":1})
 
-    st.session_state.go_data=True
 
 else:
       
