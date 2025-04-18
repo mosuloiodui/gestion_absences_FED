@@ -311,6 +311,8 @@ if dataset_choice:
     
     st.dataframe(dtt.head(11))
     dtt['Sample_Type']=dtt['Sample_Type'].replace({"G":0,"R":1})
+    st.session_state.go_data=True
+
 
 
 else:
