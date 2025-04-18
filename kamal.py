@@ -214,7 +214,7 @@ def modx(df_mixte):
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=create_model(mo)
+    model=xgb.XGBoost()
     st.session_state.go_model=True
 
     str=""
@@ -284,7 +284,7 @@ def modx(df_ctgan_100K):
     X = df.drop('Sample_Type', axis=1)
     y = df['Sample_Type']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    model=create_model(mo)
+    model=xgb.XGBoost()
     st.session_state.go_model=True
 
     str=""
