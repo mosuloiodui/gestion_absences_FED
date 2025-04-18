@@ -348,9 +348,9 @@ def modx(df_ctgan_100K):
             ax.set_ylabel("Accuracy")
             ax.legend()
             st.pyplot(fig)
-         st.markdown("### ROC curve")
+        st.markdown("### ROC curve")
 
-         with st.spinner(f"⏳ ROC Curve {name} en cours..."):
+        with st.spinner(f"⏳ ROC Curve {name} en cours..."):
             model.fit(X_train, y_train)
 
             y_pred = model.predict(X_test)
