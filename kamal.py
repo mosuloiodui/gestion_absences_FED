@@ -94,7 +94,7 @@ def xgboost():
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-@st.cache_data:
+@st.cache_data
 def courbedapprxgb():
          st.markdown("### 🎓 Courbe d'apprentissage")
 
