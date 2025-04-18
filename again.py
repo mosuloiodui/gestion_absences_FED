@@ -35,6 +35,7 @@ dataset_paths = {
     "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_ctgan.csv"
 }
 @st.cache_data
+  
 CTGAN_100k=[pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
 
 
@@ -152,23 +153,20 @@ dataset_choice = st.sidebar.multiselect(
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
-if dataset_choice:
-    @st.cache_data
-    all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
-    if 'CTGAN_100k' in dataset_choice:
-        all_data.append(pd.concat(CTGAN_100K, axis=0))  # Concaténer les 10 parties du dataset CTGAN
+@st.cache_data
+def charger_les_datasets(selection, dataset_paths, file=CTGAN_100K):
+    all_data = [lire_fichier(dataset_paths[name]) for name in selection if name in dataset_paths]
+    if 'CTGAN_100k' in selection:
+        all_data.append(pd.concat(CTGAN_100K, axis=0))  # Concatène les 10 parties
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
-    str=""
-    j=0
-    for i in range(len(dataset_choice)):                                                                                                                    
-        j+=1
-        str=str+dataset_choice[i]
-        if j<len(dataset_choice):
-              str=str+"+"
-if "df" not in st.session_state:
-    st.session_state.df = pd.DataFrame()
-st.session_state.df=df
+    return df
+
+# ---- UTILISATION ----
+if dataset_choice:
+    df = charger_les_datasets(dataset_choice, dataset_paths, CTGAN_100K)
+ 
+   
 
 
 
