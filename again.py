@@ -166,7 +166,7 @@ def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
     j=0
-    for i in range(len(select)):
+    for i in range(len(selection)):
         j+=1
         str=str+selection[i]
         if j<len(selection):
