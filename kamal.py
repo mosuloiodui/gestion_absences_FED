@@ -294,7 +294,7 @@ elif dataset_choice==['CTGAN_100K']:
       df = df_ctgan_100K
       st.session_state.df = df
       str='CTGAN_100K'
-elif 'Original' in dataset_choice and 'TVAE:
+elif 'Original' in dataset_choice and 'TVAE'  in dataset_choice:
       df = df_mixte
       st.session_state.df = df
       str='CTGAN_100K'
