@@ -146,48 +146,38 @@ def tsne(df):
 
 
 # ---- SIDEBAR ----
-st.sidebar.title("📂 Dataset Selection")
+st.sidebar.title("📂 Sélection du Dataset")
 if "datasets_choisis" not in st.session_state:
     st.session_state.datasets_choisis = []
-if "df" not in st.session_state:
-    st.session_state.df = []
+
 dataset_choice = st.sidebar.multiselect(
     "Choisissez un ou plusieurs datasets",
-    options=['Original','CTGAN_100k','CTGAN','TVAE','CouplaGAN'],default=['Original']
+    options=list(dataset_paths.keys()),default=['Original']
 )   
 st.session_state.datasets_choisis = dataset_choice
 df = pd.DataFrame()
 
-str1=''
-def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
-    all_data = [lire_fichier(dataset_paths[name]) for name in selection if name in dataset_paths]
-    if file in selection:
-        all_data.append(pd.concat(CTGAN100K, axis=0))  # Concatène les 10 parties
+if dataset_choice:
+    all_data = [lire_fichier(dataset_paths[name]) for name in dataset_choice if name in dataset_paths]
     df = pd.concat(all_data, axis=0)
     df = shuffle(df, random_state=42)
+    str=""
     j=0
-    for i in range(len(selection)):
+    for i in range(len(dataset_choice)):                                                                                                                    
         j+=1
-        str=str+selection[i]
-        if j<len(selection):
+        str=str+dataset_choice[i]
+        if j<len(dataset_choice):
               str=str+"+"
-    return df
-
-# ---- UTILISATION ----
-if dataset_choice:
-    df = charger_les_datasets(dataset_choice, dataset_paths)
-    st.session_state.df = df
-
-   
+if "df" not in st.session_state:
+    st.session_state.df = pd.DataFrame()
+st.session_state.df=df
 
 
 
 
 if "go_data" not in st.session_state:
     st.session_state.go_data = False
-go_data = st.sidebar.button(f"🚀 Go (Charger {str})")
-str='lalla'
-
+go_data = st.sidebar.button("🚀 Go (Charger Dataset)")
 # ---- PRINCIPAL ----
 st.title("Ransomeware vs Goodware")
 
