@@ -35,8 +35,10 @@ dataset_paths = {
     "CTGAN": "https://github.com/mosuloiodui/gestion_absences_FED/raw/main/dataset_synthetique_ctgan.csv"
 }
 @st.cache_data
+def panda():
+    return [pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
   
-CTGAN_100k=[pd.read_csv(dataset_paths[f'CTGAN_100K_{i+1}']) for i in range(10)]
+CTGAN_100k=panda()
 
 
 # ---- FONCTION DE LECTURE ----
