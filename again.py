@@ -167,7 +167,8 @@ def charger_les_datasets(selection, dataset_paths, file='CTGAN_100K'):
 # ---- UTILISATION ----
 if dataset_choice:
     df = charger_les_datasets(dataset_choice, dataset_paths)
- 
+    st.session_state.datasets_choisis = df
+
    
 
 
