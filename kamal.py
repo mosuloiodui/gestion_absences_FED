@@ -120,7 +120,9 @@ def modx(df_original):
                  disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["G", "R"])
                  disp.plot(ax=ax_cm, cmap="Blues")
                  st.pyplot(fig_cm)
-         with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
+        st.markdown("### 🎓 Courbe d'apprentissage")
+
+        with st.spinner(f"⏳ Courpe d'apprentissage{name} en cours..."):
           
             train_sizes, train_scores, test_scores = learning_curve(
                 model, X, y, cv=5, scoring='accuracy',
