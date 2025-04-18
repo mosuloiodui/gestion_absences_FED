@@ -178,6 +178,7 @@ if dataset_choice:
 if "go_data" not in st.session_state:
     st.session_state.go_data = False
 go_data = st.sidebar.button("🚀 Go (Charger Dataset)")
+str='lalla'
 
 # ---- PRINCIPAL ----
 st.title("Ransomaware vs Goodware")
@@ -198,7 +199,7 @@ else:
       st.sidebar.markdown("pas de choix de dataset")
 if st.session_state.get("go_data", True):
     if st.sidebar.button("t-SNE"):
-        st.title(f"### t-SNE : {str}")
+        st.title(f' t-SNE : {str}')
         with st.spinner("⏳ Exécution de t-SNE..."):
             tsne(st.session_state.df)
 
