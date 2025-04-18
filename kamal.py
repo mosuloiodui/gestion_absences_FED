@@ -370,7 +370,7 @@ if 'go_model' not in st.session_state:
 if go_model:
  if dataset_choice:
     st.session_state.go_model=True
-    mo(choix_models)
+    mod(choix_models)
     courbedappr(choix_models)
     roccurve(choix_models)
 
